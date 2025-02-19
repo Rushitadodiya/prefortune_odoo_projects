@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <menuitem id="menu_low_cost_notification_root"
+        name="Low Cost Notification"
+        sequence="-200" />
+
+    <menuitem id="menu_low_cost_master"
+        name="Low Cost"
+        parent="menu_low_cost_notification_root"
+        sequence="0" />
+
+    <menuitem id="menu_configration_master"
+        name="Configrations"
+        parent="menu_low_cost_notification_root"
+        sequence="3" />
+
+</odoo>

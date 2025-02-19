@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_Employee_root"
+        name="Employee Performance"
+        sequence="2" />
+
+        <menuitem id="menu_Employee_master"
+        name="Employee Details"
+        parent="menu_Employee_root"
+        sequence="0" />
+
+</odoo>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+Employee_Performance_Tracker.access_employee_employee_per,access_employee_employee_per,Employee_Performance_Tracker.model_employee_employee_per,base.group_user,True,True,True,True,

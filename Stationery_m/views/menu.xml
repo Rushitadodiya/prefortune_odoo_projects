@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_stationary_root"
+            name="Stationary"
+             web_icon="Stationery_m,static/description/icon.png"
+            sequence="0"/>
+
+     <menuitem id="menu_cutomer_master"
+            name="Customer details"
+             parent="menu_stationary_root" 
+            sequence="0"/>
+
+</odoo>

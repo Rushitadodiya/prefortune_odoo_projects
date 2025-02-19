@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+one_signal_app.access_one_signal_app_setting,access_one_signal_app_setting,one_signal_app.model_one_signal_app_setting,base.group_user,1,1,1,1,
+one_signal_app.access_one_signal_app_segment,access_one_signal_app_segment,one_signal_app.model_one_signal_app_segment,base.group_user,1,1,1,1,
+one_signal_app.access_one_signal_app_user,access_one_signal_app_user,one_signal_app.model_one_signal_app_user,base.group_user,1,1,1,1,
+one_signal_app.access_one_signal_app_template,access_one_signal_app_template,one_signal_app.model_one_signal_app_template,base.group_user,1,1,1,1,  
+one_signal_app.access_onesignal_push_notification_wizard,access_onesignal_push_notification_wizard,one_signal_app.model_onesignal_push_notification_wizard,base.group_user,1,1,1,1,
+one_signal_app.access_onesignal_butttom_wizard,access_onesignal_butttom_wizard,one_signal_app.model_onesignal_butttom_wizard,base.group_user,1,1,1,1,
+one_signal_app.access_contact_wizard,access_contact_wizard,one_signal_app.model_contact_wizard,base.group_user,1,1,1,1,

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_employee_search" model="ir.ui.view">
+        <field name="name">employee.employee_per.search</field>
+        <field name="model">employee.employee_per</field>
+        <field name="arch" type="html">
+            <search>
+                <field name="name" string="Employee Name"></field>
+                <field name="Department"/>
+                <field name="Role"/>
+                <field name="Performance_Score"/>
+                <field name="Review_Date"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="name">employee.employee_per.form</field>
+        <field name="model">employee.employee_per</field>
+        <field name="arch" type="html">
+        
+              <form>
+                <group>
+                <group><field name="name" string="Employee Name"/>
+                    <field name="Department"/>
+                    <field name="Role"/></group>
+                <group><field name="Performance_Score"/>
+                    <field name="Review_Date"/></group>
+                </group>
+              </form>
+            
+        </field>
+    </record>
+
+
+    <record id="view_employee_tree" model="ir.ui.view">
+        <field name="name">employee.employee_per.tree</field>
+        <field name="model">employee.employee_per</field>
+        <field name="arch" type="html">
+            <tree>
+                <field name="name" string="Employee Name"></field>
+                <field name="Department"/>
+                <field name="Role"/>
+                <field name="Performance_Score"/>
+                <field name="Review_Date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_employee" model="ir.actions.act_window">
+        <field name="name">Employee</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employee.employee_per</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face"> create your first Employee</p>
+        </field> 
+
+    </record>
+
+
+    <menuitem id="menu_Employee"
+    name="Employee"
+    parent="menu_Employee_master"
+    action="action_employee"
+    sequence="0" />
+</odoo>

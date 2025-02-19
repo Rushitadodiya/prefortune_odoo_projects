@@ -1,0 +1,31 @@
+<odoo>
+    <record id="patient_tag_vip" model="patient.tag">
+        <field name="name">VIP</field>
+        <field name="color">1</field> <!-- Red -->
+    </record>
+    <record id="patient_tag_mr" model="patient.tag">
+        <field name="name">Mr</field>
+        <field name="color">2</field> <!-- Green -->
+    </record>
+    <record id="patient_tag_miss" model="patient.tag">
+        <field name="name">Miss</field>
+        <field name="color">3</field> <!-- Blue -->
+    </record>
+    <record id="patient_tag_mrs" model="patient.tag">
+        <field name="name">Mrs</field>
+        <field name="color">6</field> <!-- Cyan -->
+    </record>
+    <record id="patient_tag_ceo" model="patient.tag">
+        <field name="name">CEO</field>
+        <field name="color">7</field> <!-- Orange -->
+    </record>
+    <record id="patient_tag_adult" model="patient.tag">
+        <field name="name">Adult</field>
+        <field name="color">4</field> <!-- Yellow -->
+    </record>
+    <record id="patient_tag_kids" model="patient.tag">
+        <field name="name">Kids</field>
+        <field name="color">5</field> <!-- Purple -->
+        <field name="active">False</field>
+    </record>
+</odoo>

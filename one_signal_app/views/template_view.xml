@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+   
+    <record id="view_onesignal_template_tree" model="ir.ui.view">
+        <field name="name">one_signal_app.template.tree</field>
+        <field name="model">one_signal_app.template</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" optional="show"/>
+                <field name="template_id" optional="show"/>
+                <field name="channel" optional="show"/>
+                <field name="setting_id" optional="show"></field>
+                <button name="delete_template"
+                class="fa fa-trash-o text-danger fs-5"
+                help="Delete Template"
+                type="object"
+                confirm="Are You sure to delete the template"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_one_signal_template_search" model="ir.ui.view">
+        <field name="name">ne_signal_app.template.search</field>
+        <field name="model">one_signal_app.template</field>
+        <field name="arch" type="html">
+            <search>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_app_name" string="App Name" context="{'group_by':'setting_id'}" />
+                </group>
+            </search>
+            </field></record>
+
+    <record id="view_one_signal_template_form" model="ir.ui.view">
+        <field name="name">one_signal_app.template.form</field>
+        <field name="model">one_signal_app.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="template_id"/>
+                            <field name="name"/>
+                            <field name="created_at"/>
+                            <field name="updated_at"/>
+                            <field name="channel"/>
+                        </group>
+                        <group>
+                            <field name="setting_id"></field>
+                            <field name="headings" invisible="channel in ('email','sms')"></field>
+                            <field name="subtitle" invisible="channel in ('email','sms')"></field>
+                            <field name="sms_from" invisible="channel in ('email','push')"></field>
+                            <field name="contents" invisible="channel == 'email'"></field>
+                            <field name="sms_media_urls" invisible="channel in ('email','push')"></field>
+                            <field name="email_subject" invisible="channel in ('push','sms')"></field>
+                            <field name="email_body" invisible="channel in ('push','sms')"></field>
+                            <field name="email_preheader" invisible="channel in ('push','sms')"></field>
+                            <field name="global_image" invisible="channel in ('email','sms')"></field>  
+                        </group>
+                    </group>
+                    <group string="Platforms">
+                        <field name="is_android"></field>
+                        <field name="is_ios"></field>
+                        <field name="is_macos"></field>  
+                        <field name="is_adm"></field>
+                        <field name="is_alexa"></field>
+                        <field name="is_wp"></field>
+                        <field name="is_wp_wns"></field>
+                        <field name="is_chrome"></field>
+                        <field name="is_chrome_web"></field>
+                        <field name="is_safari"></field>
+                        <field name="is_firefox"></field>
+                        <field name="is_edge"></field>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_one_signal_template" model="ir.actions.act_window">
+        <field name="name"> OneSignal template</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">one_signal_app.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face"></p>
+        </field>
+    </record>
+    <menuitem id="menu_template"
+        name="Templates"
+        action="action_one_signal_template"
+        parent="one_signal_template_master"
+        sequence="1" />
+</odoo>

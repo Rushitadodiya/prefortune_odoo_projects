@@ -1,0 +1,30 @@
+<odoo>
+    <record id="view_low_cost_tree" model="ir.ui.view">
+        <field name="name">low.cost.tree</field>
+        <field name="model">low.cost</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="product_id" string="Low Cost Product"/>
+                <field name="current_qty" string="current_qty"/>
+                <field name="minimum_qty" string="minimum_qty"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_low_cost" model="ir.actions.act_window">
+        <field name="name">Low Cost</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">low.cost</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No low-cost notifications yet.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_low_cost"
+        name="Low Cost"
+        action="action_low_cost"
+        parent="menu_low_cost_master"
+        sequence="10" />
+</odoo>

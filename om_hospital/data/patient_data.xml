@@ -1,0 +1,137 @@
+<odoo>
+    <record id="patient_1" model="hospital.patient">
+        <field name="name">John Doe</field>
+        <field name="date_of_birth">1990-05-15</field>
+        <field name="ref">John123</field>
+        <field name="gender">male</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_vip'), ref('patient_tag_mr')])]"/>
+    </record>
+
+    <record id="patient_2" model="hospital.patient">
+        <field name="name">Jane Smith</field>
+        <field name="date_of_birth">1995-08-20</field>
+        <field name="ref">Jane456</field>
+        <field name="gender">female</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_vip'), ref('patient_tag_miss')])]"/>
+    </record>
+
+    <record id="patient_3" model="hospital.patient">
+        <field name="name">Tommy Green</field>
+        <field name="date_of_birth">2015-02-10</field>
+        <field name="ref">Tommy789</field>
+        <field name="gender">male</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_kids')])]"/>
+    </record>
+
+    <record id="patient_4" model="hospital.patient">
+        <field name="name">Emily White</field>
+        <field name="date_of_birth">2000-11-05</field>
+        <field name="ref">Emily987</field>
+        <field name="gender">female</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_miss'), ref('patient_tag_adult')])]"/>
+    </record>
+
+    <record id="patient_5" model="hospital.patient">
+        <field name="name">Michael Brown</field>
+        <field name="date_of_birth">1987-09-12</field>
+        <field name="ref">Michael456</field>
+        <field name="gender">male</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_mr'), ref('patient_tag_adult')])]"/>
+    </record>
+
+    <record id="patient_6" model="hospital.patient">
+        <field name="name">Sophia Johnson</field>
+        <field name="date_of_birth">1992-03-25</field>
+        <field name="ref">Sophia789</field>
+        <field name="gender">female</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_mrs'), ref('patient_tag_adult')])]"/>
+    </record>
+
+    <record id="patient_7" model="hospital.patient">
+        <field name="name">Chris Evans</field>
+        <field name="date_of_birth">2012-07-10</field>
+        <field name="ref">Chris123</field>
+        <field name="gender">male</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_kids')])]"/>
+    </record>
+
+    <record id="patient_8" model="hospital.patient">
+        <field name="name">Olivia Williams</field>
+        <field name="date_of_birth">1985-11-30</field>
+        <field name="ref">Olivia456</field>
+        <field name="gender">female</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_mrs'), ref('patient_tag_adult')])]"/>
+    </record>
+
+    <record id="patient_9" model="hospital.patient">
+        <field name="name">James Taylor</field>
+        <field name="date_of_birth">2008-01-15</field>
+        <field name="ref">James987</field>
+        <field name="gender">male</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_kids')])]"/>
+    </record>
+
+    <record id="patient_10" model="hospital.patient">
+        <field name="name">Emma Davis</field>
+        <field name="date_of_birth">1999-12-22</field>
+        <field name="ref">Emma654</field>
+        <field name="gender">female</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_miss'), ref('patient_tag_adult')])]"/>
+    </record>
+
+    <record id="patient_11" model="hospital.patient">
+        <field name="name">Liam Wilson</field>
+        <field name="date_of_birth">2018-05-05</field>
+        <field name="ref">Liam321</field>
+        <field name="gender">male</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_kids')])]"/>
+    </record>
+
+    <record id="patient_12" model="hospital.patient">
+        <field name="name">Ava Moore</field>
+        <field name="date_of_birth">1994-02-14</field>
+        <field name="ref">Ava888</field>
+        <field name="gender">female</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_vip'), ref('patient_tag_mr')])]"/>
+    </record>
+
+    <record id="patient_13" model="hospital.patient">
+        <field name="name">Ethan Martinez</field>
+        <field name="date_of_birth">2005-08-18</field>
+        <field name="ref">Ethan555</field>
+        <field name="gender">male</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_miss'), ref('patient_tag_adult')])]"/>
+    </record>
+
+    <record id="patient_14" model="hospital.patient">
+        <field name="name">Isabella Robinson</field>
+        <field name="date_of_birth">1991-06-10</field>
+        <field name="ref">Isabella444</field>
+        <field name="gender">female</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_miss'), ref('patient_tag_adult')])]"/>
+    </record>
+
+    <record id="patient_15" model="hospital.patient">
+        <field name="name">Mason Lee</field>
+        <field name="date_of_birth">2017-09-22</field>
+        <field name="ref">Mason333</field>
+        <field name="gender">male</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_vip'), ref('patient_tag_mr')])]"/>
+    </record>
+
+    <record id="patient_16" model="hospital.patient">
+        <field name="name">Charlotte Clark</field>
+        <field name="date_of_birth">1980-03-19</field>
+        <field name="ref">Charlotte111</field>
+        <field name="gender">female</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_miss'), ref('patient_tag_adult')])]"/>
+    </record>
+
+    <record id="patient_17" model="hospital.patient">
+        <field name="name">Benjamin Harris</field>
+        <field name="date_of_birth">1978-11-02</field>
+        <field name="ref">Benjamin222</field>
+        <field name="gender">male</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('patient_tag_vip'), ref('patient_tag_mr')])]"/>
+    </record>
+</odoo>

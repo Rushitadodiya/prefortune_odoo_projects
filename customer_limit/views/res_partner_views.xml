@@ -1,0 +1,17 @@
+<odoo>
+  <record id="view_partner_form_inherit" model="ir.ui.view">
+      <field name="name">res.partner.form.inherit</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+          <xpath expr="//notebook/page[@name='sales_purchases']" position="inside">
+              <group string="Credit">
+                  <field name="check_credit"/>
+                  <field name="credit_limit" readonly="check_credit==False"/>
+                  <field name="credit_limit_on_hold"/>
+              </group>
+          </xpath>
+      </field>
+  </record>
+</odoo>
+<!-- <xpath expr="//notebook/page[@name='mail_body']//field[@name='body_arch']" position="attributes"></xpath> -->

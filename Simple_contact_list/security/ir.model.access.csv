@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+Simple_contact_list.access_simple_contact,access_simple_contact,Simple_contact_list.model_simple_contact,base.group_user,True,True,True,True,
+Simple_contact_list.access_simple_activity,access_simple_activity,Simple_contact_list.model_simple_activity,base.group_user,True,True,True,True,

@@ -1,0 +1,99 @@
+<odoo>
+
+    <record id="view_add_new_contact_form" model="ir.ui.view">
+        <field name="name">simple.add.new.contact.form</field>
+        <field name="model">simple.contact</field>
+        <field name="arch" type="html">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="contact_name"></field>
+                            <field name="phone"></field>
+                            <field name="email"></field>
+                            <field name="address"></field>
+                        </group>
+                        <group>
+                            <field name="company_name"></field>
+                            <field name="birthday"></field>
+                            <field name="contact_type"></field>
+                            <field name="active" invisible="1"></field>
+                        </group>
+                    </group>
+                    <notebook  >
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Enter your notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_add_new_contact_tree" model="ir.ui.view">
+        <field name="name">simple.add.new.contact.tree</field>
+        <field name="model">simple.contact</field>
+        <field name="arch" type="html">
+            <tree>
+
+                <field name="contact_name"></field>
+                <field name="phone"></field>
+                <field name="email"></field>
+                <field name="company_name"></field>
+                <field name="birthday"></field>
+                <field name="contact_type"></field>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_add_new_contact_search" model="ir.ui.view">
+        <field name="name">simple.add.new.contact.search</field>
+        <field name="model">simple.contact</field>
+        <field name="arch" type="html">
+            <search>
+
+                <field name="contact_name"></field>
+                <field name="phone"></field>
+                <field name="email"></field>
+                <field name="company_name"></field>
+                <field name="birthday"></field>
+                <field name="contact_type"></field>
+                <filter name="filter_archived" string="Archived" domain="[('active','=',False)]"/>
+                <filter name="filter_contact_type_personal" string="Personal" domain="[('contact_type','=','personal')]"/>
+                <separator/>
+                <filter name="filter_contact_type_business" string="Business" domain="[('contact_type','=','business')]"/>
+                <group expand="0" string="Group_By">
+                    <filter name="group_by_contact_type" string="Contact_type" context="{'group_by':'contact_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_add_new_contact_view" model="ir.actions.act_window">
+        <field name="name">Add New Contact</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">simple.contact</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'default_contact_type':'personal'}</field>
+        <field name="search_view_id" ref="view_add_new_contact_search"/>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('view_add_new_contact_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_add_new_contact_form')})]"/>
+        <field name="help" type="html">
+            <p class='o_view_nocontent_smiling_face'>Create your first Contact</p>
+        </field>
+    </record>
+    <menuitem id="menu_add_new_contact"
+        name="Add New Contact"
+        action="action_add_new_contact_view"
+        parent="menu_contacts_master"   
+        sequence="1" />
+
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_stationery_male_customer" model="ir.actions.act_window">
+        <field name="name">male Customer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stationary.customer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('gender','=','male')]</field>
+        <field name="context">{'default_gender':'male'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face"> create your first customer</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_customer_male"
+        name="Male Customer"
+        action="action_stationery_male_customer"
+        parent="menu_cutomer_master"
+        sequence="0" />
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_contacts_root"
+        name="Contacts List"
+        web_icon="Simple_contact_list,static/description/icon.png"
+        sequence="-100" />
+
+    <menuitem id="menu_contacts_master"
+        name="Contacts"
+        parent="menu_contacts_root"
+        sequence="0" />
+
+    <menuitem id="menu_contact_activities_master"
+        name="Contact Activities"
+        parent="menu_contacts_root"
+        sequence="1" />
+
+
+</odoo>
+    

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+      <!-- THAT is a tree view to display the customer details in tree view -->
+    <record id="view_stationery_customer_tree" model="ir.ui.view">
+        <field name="name">stationary.customer.tree</field>
+        <field name="model">stationary.customer</field>
+        <field name="arch" type="html">
+            <tree>
+                <field name="name" string="Customer Name"/>
+                <field name="age"/>
+                <field name="gender"/>
+            </tree>
+        </field>
+    </record>
+
+     <!-- THAT is a search view to searchthe customer details-->
+    <record id="view_stationery_customer_search" model="ir.ui.view">
+        <field name="name">stationary.customer.search</field>
+        <field name="model">stationary.customer</field>
+        <field name="arch" type="html">
+           <search>
+                <field name="name" string="Customer Name"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <filter name="filter_male" string="Male" domain="[('gender','=','male')]"/>
+                <filter name="filter_female" string="Female" domain="[('gender','=','female')]"/>
+                <filter name="filter_kids" string="Kids" domain="[('age','&lt;=',10)]"/>
+
+                <group expand="0" string="Group By">
+                    <filter name="group_by_gender" string="Gender" context="{'group_by':'gender'}"/>
+                </group>
+           </search>
+                
+          
+        </field>
+    </record>
+
+    
+    
+    
+    <record id="view_stationery_customer_form" model="ir.ui.view">
+        <field name="name">stationary.customer.form</field>
+        <field name="model">stationary.customer</field>
+        <field name="arch" type="html">
+            <form>
+                <!-- that sheet tag is used to craete a box of form -->
+                <sheet>
+                    <!-- that group tag is used to create a lable of form field -->
+                    <group>
+                        <!-- this group tag is used to divide two parts of the form -->
+                        <group>
+                            <field name="name"></field>
+                            <field name="age"></field>
+                        </group>
+                        <group>
+                            <field name="gender"></field>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stationery_customer" model="ir.actions.act_window">
+        <field name="name">Customer1</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stationary.customer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_filter_female':1,'search_default_group_by_gender':1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face"> create your first customer</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_customer"
+        name="Customer"
+        action="action_stationery_customer"
+        parent="menu_cutomer_master"
+        sequence="0" />
+</odoo>

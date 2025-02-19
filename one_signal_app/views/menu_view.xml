@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <menuitem id="one_signal_root"
+        name="OneSignal"
+        sequence="-200" />
+
+    <menuitem id="one_signal_settings_master"
+        name="Settings"
+        parent="one_signal_root"
+        sequence="0" />
+
+    <menuitem id="one_signal_segment_master"
+        name="Segment"
+        parent="one_signal_root"
+        sequence="1" />
+
+    <menuitem id="one_signal_users_master"
+        name="Users"
+        parent="one_signal_root"
+        sequence="2" />
+
+    <menuitem id="one_signal_push_notification_master"
+        name="Push notification"
+        parent="one_signal_root"
+        sequence="3" />
+
+    <menuitem id="one_signal_template_master"
+        name="Template"
+        parent="one_signal_root"
+        sequence="4" />
+
+    <menuitem id="one_signal_subscription_master"
+        name="Transfer"
+        parent="one_signal_root"
+        sequence="5" />
+
+    <menuitem id="menu_pushnotification"
+        name="Push Notification"
+        action="action_view_one_signal_push_notification_wizard"
+        parent="one_signal_push_notification_master"
+        sequence="1" />
+
+</odoo>

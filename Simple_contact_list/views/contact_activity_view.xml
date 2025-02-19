@@ -1,0 +1,89 @@
+<odoo>
+    <record id="view_contact_activities_search" model="ir.ui.view">
+        <field name="name">simple.contact.activities.search</field>
+        <field name="model">simple.activity</field>
+        <field name="arch" type="html">
+            <search>
+                <filter name="filter_priority_high" string="High" domain="[('priority','=','2')]"/>
+                <separator/>
+                <filter name="filter_priority_very_high" string="Very High" domain="[('priority','=','3')]"/>
+                <group expand="0" string="Group_By">
+                    <filter name="group_by_priority" string="Priority" context="{'group_by':'priority'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_contact_activities_form" model="ir.ui.view">
+        <field name="name">simple.simple.activity.form</field>
+        <field name="model">simple.activity</field>
+        <field name="arch" type="html">
+            <form>
+                <sheet>
+                    <div>
+                        <h1>
+                            <field name="priority" widget="priority"/>    
+                        </h1> 
+                    </div>
+                    <group>
+                        <group>
+                            <field name="customer_id"></field>
+                            <field name="activity_datetime"></field>
+                            <field name="phone"></field>
+                            <field name="email"></field>
+                           
+                        </group>
+                            
+                        <group>
+                            <field name="address"></field>
+                            <field name="company_name"></field>
+                            <field name="contact_type"></field>
+                        </group>
+                    </group>
+                    <notebook  >
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Enter your notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_contact_activities_tree" model="ir.ui.view">
+        <field name="name">simple.activity.tree</field>
+        <field name="model">simple.activity</field>
+        <field name="arch" type="html">
+            <tree>
+                <field name="customer_id"></field>
+                <field name="phone"></field>
+                <field name="activity_datetime"></field>
+                <field name="priority" widget="priority"/> 
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_contact_activities_view" model="ir.actions.act_window">
+        <field name="name">Contact Activities</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">simple.activity</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="search_view_id" ref="view_contact_activities_search"/>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('view_contact_activities_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_contact_activities_form')})]"/>
+        <field name="help" type="html">
+            <p class='o_view_nocontent_smiling_face'>Create your first Contact Activities</p>
+        </field>
+    </record>
+    <menuitem id="menu_contact_activities"
+        name="Contact Activities"
+        action="action_contact_activities_view"
+        parent="menu_contact_activities_master"
+        sequence="0"/>
+</odoo>

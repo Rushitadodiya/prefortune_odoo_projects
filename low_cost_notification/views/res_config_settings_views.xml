@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_low_cost_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.low_cost</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="90"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                     <app data-string="Low Cost" id="low_cost" string="Low Cost" name="low_cost_notification">
+                        <block title="Low Cost Notification" id="low_cost_setting">
+                            <setting string="Set the minimum quantity of Product">
+                                <div class="text-muted content-group mt16">
+                                    <span>Quantity</span>
+                                    <field name="minimum_quantity" class="text-center" style="width: 10%; min-width: 4rem;" />
+                                    <span>Of Product</span>
+                                </div>
+                            </setting>
+                        </block>
+                    </app>
+
+                </xpath>
+            </field>
+        </record> 
+
+        <record id="low_cost_config_settings_action" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'low_cost_notification', 'bin_size': False}</field>
+        </record>
+
+        <menuitem id="low_cost_config_settings_menu" 
+                  name="Settings"
+                  parent="low_cost_notification.menu_configration_master" 
+                  sequence="0" 
+                  action="low_cost_config_settings_action"
+                  groups="base.group_system"/>
+    </data>
+</odoo>

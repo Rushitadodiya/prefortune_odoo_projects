@@ -1,0 +1,38 @@
+<odoo>
+    <record id="view_customer_credit_limit_wizard" model="ir.ui.view">
+        <field name="name">customer.credit.limit.wizard.form</field>
+        <field name="model">customer.credit.limit.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <h5 style="color: red; font-weight: bold;">Credit Limit Exceeded</h5>
+                <sheet>
+                    <group>
+                        <group >
+                            <field name="partner_id" />
+                            <field name="credit_limit"></field>
+                            <field name="credit_limit_on_hold"/>
+                        </group>
+                        <group>
+                            <field name="total_receivable" readonly="1"/>
+                            <field name="pending_sale_orders" readonly="1" widget="text"/>
+                            <field name="draft_invoices" readonly="1" widget="text"/>
+                            <field name="current_Quotation"/>
+                            <field name="exceeded_amount" readonly="1" style="color: red;"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Confirm" type="object" name="confirm_order" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_customer_credit_limit_wizard" model="ir.actions.act_window">
+        <field name="name">Customer Credit Limit</field>
+        <field name="res_model">customer.credit.limit.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
