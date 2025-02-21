@@ -329,7 +329,7 @@ class user(models.Model):
 
 
     def sync_user_delete(self):
-        setting = self.env['one_signal_app.setting'].search([],limit=1)
+        setting = self.env['one_signal_app.setting'].search([])
 
         for signal_record in setting:
             

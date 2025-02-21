@@ -268,7 +268,11 @@ class template(models.Model):
         else:
                 _logger.error(f"Failed to update user: {response.text}")
 
-
+    def unlink(self):
+        for record in self:
+            record.delete_template() 
+        return super(template, self).unlink()
+    
     def delete_template(self):
         setting = self.env['one_signal_app.setting'].search([],limit=1)
 
@@ -286,6 +290,40 @@ class template(models.Model):
         else:
                 _logger.info(f"Failed to delete Template: {response.text}")        
 
+
+
+    def sync_template_delete(self):
+        setting = self.env['one_signal_app.setting'].search([])
+
+        for signal_record in setting:
+            _logger.info(f"signal_record_app_id....................................{signal_record.app_id}")
+            url = f"https://onesignal.com/api/v1/templates?app_id={signal_record.app_id}"
+            _logger.info(f"Fetching users from URL: {url}")
+
+            headers = {
+                "accept": "text/plain",
+                "Content-Type": "application/json",
+                "Authorization": f"Key {signal_record.rest_api_key}"
+            }
+            response = requests.get(url, headers=headers)
+            _logger.info(f"response........................................{response.text}")
+            if response.status_code == 200:
+                templates=response.json().get('templates',[])
+                template_ids = [template.get('id') for template in templates]
+                _logger.info(f"template_id...............................................{template_ids}")
+                _logger.info(f"setting_id....................{self.setting_id}")
+                _logger.info(f"signal_record_id....................{signal_record.id}")
+                odoo_templates=self.search([('setting_id', '=', signal_record.id)])
+                _logger.info(f"odoo_templates...................{odoo_templates}")
+                for odoo_template in odoo_templates:
+                            if odoo_template.template_id not in template_ids:
+                                _logger.info(f"User {odoo_template.template_id} no longer exists in OneSignal. Deleting in Odoo.")
+                                odoo_template.unlink()
+            
+            else:
+                 _logger.error(f"Failed to fetch templates from OneSignal: {response.status_code}, {response.text}")
+                 
+        
 
 
 
