@@ -250,6 +250,12 @@ class user(models.Model):
 
 
 
+    def unlink(self):
+        for record in self:
+            record.delete_user() 
+        return super(user, self).unlink()
+
+
     def delete_user(self):
             setting = self.env['one_signal_app.setting'].search([],limit=1)
             url = f"https://onesignal.com/api/v1/players/{self.onesignal_id}?app_id={setting.app_id}"
@@ -469,3 +475,4 @@ class user(models.Model):
 
 
 
+ 

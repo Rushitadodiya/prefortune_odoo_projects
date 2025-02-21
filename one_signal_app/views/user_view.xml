@@ -36,12 +36,6 @@
         <field name="model">one_signal_app.user</field>
         <field name="arch" type="xml">
             <form>
-                <header>
-                    <button name="delete_user"
-                            string="Delete User"
-                            type="object"
-                           />
-                </header>
                 <sheet>
                     <group>
                         <group>

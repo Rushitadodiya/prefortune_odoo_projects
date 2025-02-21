@@ -235,6 +235,10 @@ class OneSignalPushNotification(models.TransientModel):
                     payload["included_segments"] = ["All SMS Subscriptions"]
                 else:
                     payload["included_segments"] = ["All Email Subscriptions"]
+            elif self.send_to == 'subscription_id':
+                    payload["include_player_ids"]=self.subscription_id.mapped('onesignal_id')
+            else :
+                return
 
             if self.using_template :
                 payload["template_id"] = self.template.template_id
@@ -246,8 +250,13 @@ class OneSignalPushNotification(models.TransientModel):
             _logger.info("Sending SMS Notification...")
             _logger.info("sms..................................")
             payload.update({
-                "contents": {"en": self.content or ""},
+                # "contents": {"en": self.content or ""},
+                "sms_from":"+15414066946",
+                "name":setting.name,
             })
+            _logger.info(f"payload.....................{payload}")
+            if self.content:
+                payload["contents"] = {"en": self.content}
             if self.send_to == 'all':
                 payload["included_segments"] = ["Total Subscriptions"]
             elif self.send_to == 'segment':
@@ -263,9 +272,14 @@ class OneSignalPushNotification(models.TransientModel):
                     payload["included_segments"] = ["All SMS Subscriptions"]
                 else:
                     payload["included_segments"] = ["All Email Subscriptions"]
+            elif self.send_to == 'subscription_id':
+                    payload["include_player_ids"]=self.subscription_id.mapped('onesignal_id')
+            else :
+                return
 
-            if self.using_template :
+            if self.using_template and self.template:
                 payload["template_id"] = self.template.template_id
+                _logger.info(f"Using template ID: {self.template.template_id}")
 
 
         #HEADERS
