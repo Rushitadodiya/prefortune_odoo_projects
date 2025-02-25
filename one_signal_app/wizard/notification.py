@@ -1,8 +1,14 @@
 from odoo import api, fields, models, _
 import logging
 import requests
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
+
+
+
+
+
 class butttom(models.TransientModel):
     _name = 'onesignal.butttom.wizard'
     _description = 'OneSignal butttom Wizard'
@@ -17,11 +23,11 @@ class OneSignalPushNotification(models.TransientModel):
     _name = 'onesignal.push.notification.wizard'
     _description = 'OneSignal Push Notification Wizard'
 
-    name = fields.Many2one('one_signal_app.setting', string="OneSignal Account Name", required=True)
+    name = fields.Many2one('one_signal_app.setting', string="OneSignal Account Name")
     template = fields.Many2one('one_signal_app.template', string="Templates", domain=[])
     segment_id = fields.Many2one('one_signal_app.segment', string="segment",domain=[])
     button_ids = fields.One2many('onesignal.butttom.wizard','noti_id',string="Action Button")
-    subscription_id = fields.Many2one('one_signal_app.user', string="Subecription Id",domain=[])
+    subscription_id = fields.Many2many('one_signal_app.user', string="Subecription Id",domain=[])
     notification_type = fields.Selection([
          ('push','push'),('email','email'),('sms','sms')
     ], string="Notification Type", required=True,default="push")
@@ -44,6 +50,9 @@ class OneSignalPushNotification(models.TransientModel):
     template_domain = fields.Binary(compute="_compute_template_domain")
     segment_domain = fields.Binary(compute="_compute_segment")
     subcription_domain=fields.Binary(compute="_compute_sub_id")
+
+
+
 
 
     @api.depends('notification_type', 'name')
@@ -134,17 +143,43 @@ class OneSignalPushNotification(models.TransientModel):
 
       
        
-
-
-
-    
-
-
     def fire_notification(self):
         """Send notification via OneSignal API"""
-        if not self.name:
-            _logger.error("No OneSignal account selected.")
-            return
+        # if not self.name:
+        #    raise ValidationError("No OneSignal account selected.")
+        # if self.send_to == 'subscription_id':
+        #         if not self.subscription_id:
+        #                 raise ValidationError(" Subecription Id is required. Please select valid Subecription Id") 
+        # if self.send_to == 'segment':
+        #         if not self.subscription_id:
+        #                 raise ValidationError("segment is required. Please select valid segment") 
+        # if self.using_template:  
+        #         if not self.template:
+        #                   raise ValidationError("Template is required. Please select valid Template")
+            
+        
+
+        # if self.notification_type == 'push':
+        #     if not self.heading :
+        #         raise ValidationError("Heading is required. Please enter valid Heading")
+        #     elif not self.content :
+        #         raise ValidationError("content is required. Please enter valid content")
+            
+
+        # if self.notification_type == 'email':
+        #     if not self.email_subject :
+        #         raise ValidationError("Email subject is required. Please enter valid Email subject")
+        #     elif not self.email_body :
+        #         raise ValidationError("Email body is required. Please enter valid Email body")  
+
+
+        # if self.notification_type == 'sms':
+        #     if not self.heading :
+        #         raise ValidationError("Heading is required. Please enter valid Heading")
+        #     elif not self.content :
+        #         raise ValidationError("content is required. Please enter valid content") 
+            
+        
 
         setting = self.name  # Selected OneSignal setting
 
@@ -295,6 +330,13 @@ class OneSignalPushNotification(models.TransientModel):
 
         if response.status_code == 200:
             _logger.info("Notification sent successfully!")
+            return {
+                'effect': {
+                    'fadeout': 'slow',
+                    'message': 'Notification sent successfully!',
+                    'type': 'rainbow_man',
+                }
+            }
         else:
             _logger.error(f"Failed to send notification: {response.text}")
 

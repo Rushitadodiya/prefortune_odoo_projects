@@ -10,6 +10,10 @@
                 <field name="onesignal_id"></field>
                 <field name="setting_id"></field>
                 <field name="type"></field>
+                <field name="device_type" required="1" optional="hide"></field>
+                <field name="token" string="Email address" invisible="device_type in('0','1','2','3','4','5','6','7','8','9','10','12','13','14')" required="1" optional="hide"></field>
+                <field name="token" string="Phone number" invisible="device_type in('0','1','2','3','4','5','6','7','8','9','10','11','12','13')" required="1" optional="hide"></field>
+                <field name="token" string="Token" invisible="device_type in('11','14')" required="1" optional="hide"></field>
                 <button name="delete_user"
                 class="fa fa-trash-o text-danger fs-5"
                 help="Delete User"
@@ -23,7 +27,9 @@
         <field name="model">one_signal_app.user</field>
         <field name="arch" type="html">
             <search>
+                <field name="token"/>
                 <group expand="0" string="Group By">
+                    
                     <filter name="group_by_app_name" string="App Name" context="{'group_by':'setting_id'}" />
                 </group>
             </search>
@@ -42,7 +48,7 @@
                             <field name="external_user_id"></field>
                             <field name="last_active" readonly="1"></field>
                             <field name="identifier"></field>
-                            <field name="device_type"></field>
+                            <field name="device_type" required="1"></field>
                             <field name="device_model"></field>
                             <field name="device_os"></field>
                             <field name="language"></field>
@@ -50,15 +56,15 @@
                         </group>
                         <group>
                             <field name="country"></field>
-                            <field name="token" string="Email address" invisible="device_type in('0','1','2','3','4','5','6','7','8','9','10','12','13','14')"></field>
-                            <field name="token" string="Phone number" invisible="device_type in('0','1','2','3','4','5','6','7','8','9','10','11','12','13')"></field>
-                            <field name="token" string="Token" invisible="device_type in('11','14')"></field>
+                            <field name="token" string="Email address" invisible="device_type in('0','1','2','3','4','5','6','7','8','9','10','12','13','14')" required="1"></field>
+                            <field name="token" string="Phone number" invisible="device_type in('0','1','2','3','4','5','6','7','8','9','10','11','12','13')" required="1"></field>
+                            <field name="token" string="Token" invisible="device_type in('11','14')" required="1"></field>
                             <field name="tags"></field>
                             <field name="session_count" readonly="1"></field>
                             <field name="ip"></field>
                             <field name="sub_id"></field>
                             <field name="onesignal_id"></field>
-                            <field name="setting_id"></field>
+                            <field name="setting_id" required="1"></field>
                         </group>
                     </group>
                 </sheet>

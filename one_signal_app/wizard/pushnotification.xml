@@ -7,25 +7,24 @@
             <form>
                 <sheet>
                     <group>
-                        <group >
-                            <field name="name"></field>
+                            <field name="name" required="1"></field>
                             <field name="notification_type"></field>
                             <field name="using_template"></field>
                             <field name="template_domain" invisible="True"/>
-                            <field name="email_subject" invisible="notification_type in ('push','sms') or using_template"></field>
-                            <field name="email_body"  invisible="notification_type in ('push','sms') or using_template"></field>
-                            <field name="template" domain="template_domain" invisible="not using_template"></field>
-                            <field name="heading" invisible="using_template == 1 or notification_type == 'email'"></field>
-                            <field name="content" invisible="using_template == 1 or notification_type == 'email'"></field>
+                            <field name="email_subject" invisible="notification_type in ('push','sms') or using_template" required="notification_type == 'email'"></field>
+                            <field name="email_body"  invisible="notification_type in ('push','sms') or using_template" required="notification_type == 'email'"></field>
+                            <field name="template" domain="template_domain" invisible="not using_template" required="using_template"></field>
+                            <field name="heading" invisible="using_template == 1 or notification_type == 'email'" required="notification_type in ('push','sms')"></field>
+                            <field name="content" invisible="using_template == 1 or notification_type == 'email'" required="notification_type in ('push','sms')"></field>
                             <field name="cover_url" invisible="using_template == 1 or notification_type in ('email','sms')"></field>
                             <field name="redirect_url" invisible="using_template == 1 or notification_type in ('email','sms')"></field>
                             <field name="action_btn" invisible="using_template == 1 or notification_type in ('email','sms')"></field>
                             <field name="send_to"></field>
                             <field name="segment_domain" invisible="True"></field>
-                            <field name="segment_id" domain="segment_domain" invisible="send_to in ('all','subscription_id')"></field>
+                            <field name="segment_id" domain="segment_domain" invisible="send_to in ('all','subscription_id')" required="send_to == 'segment'"></field>
                             <field name="subcription_domain" invisible="True"></field>
-                            <field name="subscription_id"  domain="subcription_domain" invisible="send_to in ('all','segment')"></field>
-                        </group>
+                            <field name="subscription_id"  domain="subcription_domain" invisible="send_to in ('all','segment')" required="send_to == 'subscription_id'"></field>
+                        
                     </group>
                     <notebook invisible="not action_btn">
                         <page string="Add Buttons">

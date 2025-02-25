@@ -8,9 +8,9 @@
         <field name="numbercall">-1</field>
         <field name="state">code</field>
         <field name="code">model.one_signal_msg()</field>
-    </record>
+    </record> 
 
-    <record id="one_signal_app_delete_user_cron" model="ir.cron">
+     <record id="one_signal_app_delete_user_cron" model="ir.cron">
         <field name="name">one signal app delete user cron</field>
         <field name="model_id" ref="model_one_signal_app_user"/>
         <field name="interval_number">1</field>
@@ -20,7 +20,7 @@
         <field name="code">model.sync_user_delete()</field>
     </record>
 
-    <record id="one_signal_app_delete_template_cron" model="ir.cron">
+     <record id="one_signal_app_delete_template_cron" model="ir.cron">
         <field name="name">one signal app delete template cron</field>
         <field name="model_id" ref="model_one_signal_app_template"/>
         <field name="interval_number">1</field>

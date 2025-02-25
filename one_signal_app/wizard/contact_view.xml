@@ -8,11 +8,11 @@
                 <field name="arch" type="xml">
                     <form string="Subscribe to OneSignal">
                         <group>
-                            <field name="connector_ids" />
+                            <field name="connector_ids"  required="1"/>
                             <field name="contact_id" readonly="1"/>
                             <field name="notification_type"  />
-                            <field name="email" readonly="1" invisible="notification_type != 'email'"/>
-                            <field name="phone" readonly="1" invisible="notification_type != 'sms'" />
+                            <field name="email" readonly="1" invisible="notification_type != 'email'" required="notification_type == 'email'"/>
+                            <field name="phone" readonly="1" invisible="notification_type != 'sms'" required="notification_type == 'sms'"/>
                         </group>
                         <footer>
                             <button name="subscribe_to_onesignal"

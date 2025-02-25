@@ -1,5 +1,5 @@
 
-from odoo import models, fields, api
+from odoo import models, fields, api,_
 from odoo.exceptions import ValidationError
 # import datetime
 from datetime import datetime
@@ -30,6 +30,7 @@ class user(models.Model):
     _name = 'one_signal_app.user'
     _description = 'one_signal_app_user'
     _rec_name="onesignal_id"
+    
 
     external_user_id = fields.Char(string="External User ID")
     identifier = fields.Char(string="FCM Identifier" ,readonly=True)
@@ -76,6 +77,7 @@ class user(models.Model):
 
         if not setting:
             _logger.error(f"No settings found for app_id: {app_id}")
+            raise ValidationError(f"No settings found for app_id: {app_id}")
             return
         
         url = f"https://onesignal.com/api/v1/players?app_id={setting.app_id}"
@@ -147,6 +149,7 @@ class user(models.Model):
                                     self.with_context(sync_user=True).create(values)        
         else:
             _logger.error(f"Failed to fetch users: {response.text}")
+            raise ValidationError(f"Failed to fetch users: {response.text}")
  
                    
 
@@ -165,10 +168,10 @@ class user(models.Model):
     
     @api.model
     def create(self, vals):
-        if not vals.get("device_type"):
-             raise ValidationError("Device type is required. Please select valid device type")
+        # if not vals.get("device_type"):
+        #      raise ValidationError("Device type is required. Please select valid device type")
           
-        elif vals.get("device_type") == "11":
+        if vals.get("device_type") == "11":
              email = vals.get("token")
              if not self.is_valid_email(email):
                 raise ValidationError("Invalid email format. Please enter a valid email address.")
@@ -178,21 +181,21 @@ class user(models.Model):
              if not self.is_valid_phone(phone):
                 raise ValidationError("Invalid phone Number. Please enter a valid Phone Number.")
              
-        elif not vals.get("setting_id"):
-             raise ValidationError("App name is required. Please select valid App name")
+        # elif not vals.get("setting_id"):
+        #      raise ValidationError("App name is required. Please select valid App name")
         
-        else:
-             if not vals.get("device_type") == "14":
-                token = vals.get("token")
-                if not token:
-                    raise ValidationError("Token is required. Please enter a valid Token")
+        # else:
+        #      if not vals.get("device_type"):
+        #         token = vals.get("token")
+        #         if not token:
+        #             raise ValidationError("Token is required. Please enter a valid Token")
 
              
         sync_user = self.env.context.get('sync_user', False)
         if not sync_user:
                 record = super(user, self).create(vals)   
                 record.create_user()
-                return record 
+                return record
         else:
              return super(user, self).create(vals)
                        
@@ -204,7 +207,7 @@ class user(models.Model):
                 return  # Stop execution if the device type is invalid
            
             url = f"https://api.onesignal.com/apps/{self.setting_id.app_id}/users"
-            _logger.info(f"url..........................{self.token}")
+            _logger.info(f"url..........................{url}")
             
             payload = {
                 "properties": {
@@ -227,23 +230,22 @@ class user(models.Model):
                 "accept": "application/json",
                 "content-type": "application/json"
             }
-
+            
             response = requests.post(url, json=payload, headers=headers)
             _logger.info(f"response_text...................{response.status_code}")
 
             if response.status_code == 201:
+                
                 self.setting_id.sync_user()
+               
                 _logger.info("User created successfully in OneSignal.")
                
-                return {
-                'effect': {
-                    'fadeout': 'slow',
-                    'message': 'User Created successful!',
-                    'type': 'rainbow_man',
-                }
-            }
+                
+                
+              
             else:
                 _logger.error(f"Failed to create user: {response.text}")
+                raise ValidationError(f"Failed to create user: {response.text}")
             
             
 
@@ -323,13 +325,13 @@ class user(models.Model):
        
             _logger.info(f"response_text...................{response.status_code}")
             if response.status_code == 202:
-                _logger.info("User updated successfully in OneSignal.")
+                _logger.info("User updated successfully in .")
             else:
                 _logger.error(f"Failed to update user: {response.text}")
 
 
     def sync_user_delete(self):
-        setting = self.env['one_signal_app.setting'].search([])
+        setting = self.env['one_signal_app.setting'].search([],limit=1)
 
         for signal_record in setting:
             

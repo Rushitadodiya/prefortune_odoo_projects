@@ -45,9 +45,9 @@
                 </header>
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="app_id"/>
-                        <field name="rest_api_key"/>
+                        <field name="name" required="1"/>
+                        <field name="app_id" required="1"/>
+                        <field name="rest_api_key" required="1"/>
                         <field name="total_players" readonly="1"/>
                         <field name="connection_status" 
                                readonly="1" 

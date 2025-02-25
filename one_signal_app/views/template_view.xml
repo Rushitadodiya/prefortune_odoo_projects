@@ -40,20 +40,20 @@
                     <group>
                         <group>
                             <field name="template_id"/>
-                            <field name="name"/>
+                            <field name="name" required="1"/>
                             <field name="created_at"/>
                             <field name="updated_at"/>
                             <field name="channel"/>
                         </group>
                         <group>
-                            <field name="setting_id"></field>
-                            <field name="headings" invisible="channel in ('email','sms')"></field>
-                            <field name="subtitle" invisible="channel in ('email','sms')"></field>
-                            <field name="sms_from" invisible="channel in ('email','push')"></field>
-                            <field name="contents" invisible="channel == 'email'"></field>
+                            <field name="setting_id" required="1"></field>
+                            <field name="headings" invisible="channel in ('email','sms')" required="channel == 'push'"></field>
+                            <field name="subtitle" invisible="channel in ('email','sms')" required="channel == 'push'"></field>
+                            <field name="sms_from" invisible="channel in ('email','push')" placeholder="Enter +91xxxxxxxxxx" required="1"></field>
+                            <field name="contents" invisible="channel == 'email'" required="channel in ('push','sms')"></field>
                             <field name="sms_media_urls" invisible="channel in ('email','push')"></field>
-                            <field name="email_subject" invisible="channel in ('push','sms')"></field>
-                            <field name="email_body" invisible="channel in ('push','sms')"></field>
+                            <field name="email_subject" invisible="channel in ('push','sms')" required="channel == 'email'"></field>
+                            <field name="email_body" invisible="channel in ('push','sms')" required="channel == 'email'"></field>
                             <field name="email_preheader" invisible="channel in ('push','sms')"></field>
                             <field name="global_image" invisible="channel in ('email','sms')"></field>  
                         </group>

@@ -1,7 +1,9 @@
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 import datetime
 import requests
 import logging
+import re
 
 _logger = logging.getLogger(__name__)
 
@@ -10,10 +12,11 @@ _logger = logging.getLogger(__name__)
 class template(models.Model):
     _name = 'one_signal_app.template'
     _description = 'one_signal_app_template'
+    _rec_name="name"
 
 
     template_id = fields.Char(string="Template ID",index=True,readonly=True)
-    name = fields.Char(string="Template Name", required=True)
+    name = fields.Char(string="Template Name")
     created_at = fields.Datetime(string="Created At",readonly=True)
     updated_at = fields.Datetime(string="Updated At",readonly=True)
     channel = fields.Selection([
@@ -53,6 +56,7 @@ class template(models.Model):
         setting = self.env['one_signal_app.setting'].search([("id", "=",app_id)],limit=1)
         if not setting:
             _logger.error(f"No settings found for app_id: {app_id}")
+            raise ValidationError(f"No settings found for app_id: {app_id}")
             return
         url = f"https://api.onesignal.com/templates?limit=49&offset=offset&app_id={setting.app_id}"
         headers = {
@@ -122,9 +126,42 @@ class template(models.Model):
                                 existing_template.write(values)
                             else:
                                 self.with_context(sync_template=True).create(values)
-              
+
+
+
+
+    @staticmethod
+    def is_valid_phone(phone):
+        """Function to validate a phone number format."""
+        phone_regex = r"^\+?[1-9]\d{1,14}$"  # Supports E.164 format
+        return bool(phone and re.match(phone_regex, phone))
+             
     @api.model
     def create(self, vals):
+        # if not vals.get("name"):
+        #      raise ValidationError("Template Name is required. Please enter valid Template Name")
+        # elif not vals.get("setting_id"):
+        #      raise ValidationError("App Name is required. Please select valid App Name")
+        
+        # if vals.get("channel")=='push':
+        #     if not vals.get("headings"):
+        #         raise ValidationError("Heading is required. Please enter valid Heading")
+        #     elif not vals.get("subtitle"):
+        #         raise ValidationError("subtitle is required. Please enter valid subtitle")
+        #     elif not vals.get("contents"):
+        #         raise ValidationError("contents is required. Please enter valid contents")
+            
+        # if vals.get("channel")=='email':
+        #     if not vals.get("email_subject"):
+        #         raise ValidationError("Email subject is required. Please enter valid Email subject")
+        #     elif not vals.get("email_body"):
+        #         raise ValidationError("Email body is required. Please enter valid Email body")
+            
+        if vals.get("channel")=='sms':
+            phone = vals.get("sms_from")
+            if not self.is_valid_phone(phone):
+                raise ValidationError("Invalid phone Number. Please enter a valid Phone Number.")
+        
         sync_template = self.env.context.get('sync_template', False)
         if not sync_template:
                 record = super(template, self).create(vals)   
@@ -189,10 +226,11 @@ class template(models.Model):
         response = requests.post(url, json=payload, headers=headers)
         _logger.info(f"response_text...................{response.status_code}")
         if response.status_code == 200:
-                _logger.info("User created successfully in OneSignal.")
+                _logger.info("Template created successfully in OneSignal.")
                 self.setting_id.sync_template()
         else:
-                _logger.error(f"Failed to create user: {response.text}")
+                _logger.error(f"Failed to create Template: {response.text}")
+                raise ValidationError(f"Failed to create Template: {response.text}")
 
         _logger.info(f"response_text......................{response.text}")
 
@@ -228,7 +266,7 @@ class template(models.Model):
                     "isSMS": True,
                     "sms_from":self.sms_from,
                     "contents": { "en": self.contents},
-                    "sms_media_urls": self.sms_media_urls,
+                    "sms_media_urls": self.sms_media_urls or " ",
                 }
              
         else:
